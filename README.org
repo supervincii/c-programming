@@ -1,0 +1,4 @@
+#+TITLE: C Programming
+#+DESCRIPTION: A collection of notes & exercises on C programming
+
+Resource: C Programming: A Modern Approach by K.N. King
