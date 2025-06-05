@@ -1,6 +1,5 @@
 /* Calculates a broker's commission */
 
-
 #include <stdio.h>
 
 int main(void) {
