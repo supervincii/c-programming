@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,20 +17,51 @@ void stack_overflow(void);
 void stack_underflow(void);
 
 int main(void) {
-    printf("Enter an RPN expression: ");
+    char ch, op1, op2;
+
+    while (true) {
+        printf("Enter an RPN expression: ");
+
+        while ((ch = getchar()) != '\n') {
+            if (isdigit(ch))
+                // ch is a digit but is a string.
+                // We subtract the ASCII value of '0' with the ASCII value of the digit string.
+                push(ch - '0');
+            else
+                switch (ch) {
+                case '+':
+                    push(pop() + pop());
+                    break;
+                case '-':
+                    op2 = pop();
+                    op1 = pop();
+                    push(op1 - op2);
+                    break;
+                case '*':
+                    push(pop() * pop());
+                    break;
+                case '/':
+                    op2 = pop();
+                    op1 = pop();
+                    push(op1 / op2);
+                    break;
+                case '=':
+                    printf("Value of expression: %d\n", pop());
+                    break;
+                case ' ':
+                    break;
+                default:
+                    exit(EXIT_FAILURE);
+                }
+        }
+    }
 }
 
-void make_empty(void) {
-    top = 0;
-}
+void make_empty(void) { top = 0; }
 
-bool is_full(void) {
-    return top == STACK_SIZE;
-}
+bool is_full(void) { return top == STACK_SIZE; }
 
-bool is_empty(void) {
-    return top == 0;
-}
+bool is_empty(void) { return top == 0; }
 
 void push(int i) {
     if (is_full())
