@@ -23,6 +23,11 @@ int main(void) {
         scanf("%2d", &day);
         if (day == 0)
             break;
+
+        // `sprintf` stores the output on a char buffer which is
+        // specified in the function. In this case it stores the
+        // value of day into `day_str`. `day_str` then automatically
+        // gets a null character at the end of the char array.
         sprintf(day_str, "%2d", day);
         read_line(msg_str, MSG_LEN);
 
@@ -43,4 +48,14 @@ int main(void) {
         printf(" %s\n", reminders[i]);
 
     return 0;
+}
+
+int read_line(char str[], int n) {
+    int ch, i = 0;
+
+    while ((ch = getchar()) != '\n')
+        if (i < n)
+            str[i++] = ch;
+    str[i] = '\0';
+    return i;
 }
